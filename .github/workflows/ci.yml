@@ -1,0 +1,36 @@
+name: CI/CD workflow
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clonar Repositorio
+      uses: actions/checkout@v4
+    - name: Configurar Node.js  
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - name: Instalar dependencias
+      run: npm install    
+    - name: Lint del Codigo
+      run: npm run lint
+    - name: Ejecutar pruebas con cobertura
+      run: npm test -- --coverage
+    - name: Verificar cobertura mínima
+      run: |
+        COVERAGE=$(node -e "const c=require('./coverage/coverage-summary.json').total;console.log(c.lines.pct>=80 && c.branches.pct>=80 ? 'ok' : 'fail')")
+        if [ "$COVERAGE" = "fail" ]; then
+          echo "Coverage < 80%"; exit 1;
+        fi
+    - name: Subir reporte de cobertura
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage
+    - name: Simular despligue
+      run: |
+        echo "Despliegue simulado: La aplicación pasó lint, pruebas y cobertura correctamente"
