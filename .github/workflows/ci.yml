@@ -27,7 +27,7 @@ jobs:
           echo "Coverage < 80%"; exit 1;
         fi
     - name: Subir reporte de cobertura
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-report
         path: coverage
