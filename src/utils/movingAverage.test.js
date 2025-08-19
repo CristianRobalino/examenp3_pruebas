@@ -1,4 +1,4 @@
-const { movingAverage } = require('./movingAverage');
+import { movingAverage } from './movingAverage.js';
 
 describe('movingAverage', () => {
   test('[10,20,30,40], 2 → [15.00, 25.00, 35.00]', () => {

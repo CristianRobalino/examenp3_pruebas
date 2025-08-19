@@ -1,4 +1,4 @@
-const { toCelsius, toFahrenheit } = require('./conversion');
+import { toCelsius, toFahrenheit } from './conversion.js';
 
 describe('toCelsius', () => {
   test('32°F → 0.0°C', () => {
