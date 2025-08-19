@@ -20,8 +20,15 @@ jobs:
       run: npm run lint
     - name: Ejecutar pruebas con cobertura
       run: npm test -- --coverage
+    - name: Mostrar contenido de coverage
+      run: |
+        ls -l coverage || echo "No existe la carpeta coverage"
     - name: Verificar cobertura mínima
       run: |
+        if [ ! -f coverage/coverage-summary.json ]; then
+          echo "No se generó coverage/coverage-summary.json. Verifica configuración de Jest y comando de pruebas.";
+          exit 1;
+        fi
         COVERAGE=$(node -e "const c=require(process.env.GITHUB_WORKSPACE + '/coverage/coverage-summary.json').total;console.log(c.lines.pct>=80 && c.branches.pct>=80 ? 'ok' : 'fail')")
         if [ "$COVERAGE" = "fail" ]; then
           echo "Coverage < 80%"; exit 1;
