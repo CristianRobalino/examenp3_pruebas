@@ -18,7 +18,7 @@ jobs:
       run: npm install    
     - name: Lint del Codigo
       run: npm run lint
-    - name: Ejecutar pruebas con cobertura
+    - name: Ejecutar pruebas con cobertur
       run: npm test -- --coverage
     - name: Mostrar contenido de coverage
       run: |
