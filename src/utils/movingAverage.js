@@ -1,5 +1,5 @@
 // Media móvil simple
-export function movingAverage(series, window) {
+function movingAverage(series, window) {
     if (!Array.isArray(series) || series.some(x => !Number.isFinite(x))) {
         throw new TypeError('Series must be an array of finite numbers');
     }
@@ -13,3 +13,5 @@ export function movingAverage(series, window) {
     }
     return result;
 }
+
+module.exports = { movingAverage };
